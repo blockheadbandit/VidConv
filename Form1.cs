@@ -30,8 +30,10 @@ namespace Download_and_converter
         {
             //updater code here
             InitializeComponent();
+            DeleteFileBtn.Enabled = false;
             if (!Directory.Exists(downloadPath) || !Directory.Exists(ConvertPath))
             {
+                // triggers antivirus for some reason
                 FFmpegDownloader.GetLatestVersion(FFmpegVersion.Official);
                 Directory.CreateDirectory(downloadPath);
                 Directory.CreateDirectory(ConvertPath);
@@ -141,8 +143,10 @@ namespace Download_and_converter
 
             }
         }
+        string clickedfile;
         private void fileTextClick(object sender, EventArgs e, string fileName, Label triggerLbl)
         {
+            DeleteFileBtn.Enabled = true;
             if (oldLbl != null)
             {
                 if (userConfig.darkMode)
@@ -160,6 +164,7 @@ namespace Download_and_converter
 
             triggerLbl.BackColor = SystemColors.Highlight;
             convertFilePath.Text = fileName;
+            clickedfile = fileName;
             output = Path.Combine(ConvertPath, triggerLbl.Text.Split(".")[0]);
             oldLbl = triggerLbl;
         }
@@ -213,12 +218,6 @@ namespace Download_and_converter
                 conversion.Start();
                 convertProgress.PerformStep();
             }
-            else if (convCodec.Equals("WAV"))
-            {
-                var conversion = await FFmpeg.Conversions.FromSnippet.Convert(convPth, $"{output}.wav");
-                conversion.Start();
-                convertProgress.PerformStep();
-            }
             else if (convCodec.Equals("MOV"))
             {
                 var conversion = await FFmpeg.Conversions.FromSnippet.Convert(convPth, $"{output}.mov");
@@ -264,8 +263,9 @@ namespace Download_and_converter
         }
         public void applyConfig()
         {
-            
-            if (userConfig.FFmpegPath != null){
+
+            if (userConfig.FFmpegPath != null)
+            {
                 FFmpeg.SetExecutablesPath(userConfig.FFmpegPath);
             }
             if (userConfig.Ytdlpath != null)
@@ -280,7 +280,7 @@ namespace Download_and_converter
                 List<Label> labels = this.Controls.OfType<Label>().ToList();
                 List<Button> buttons = this.Controls.OfType<Button>().ToList();
                 List<ProgressBar> bars = this.Controls.OfType<ProgressBar>().ToList();
-                    List<TextBox> textboc = this.Controls.OfType<TextBox>().ToList();
+                List<TextBox> textboc = this.Controls.OfType<TextBox>().ToList();
                 List<ComboBox> combox = this.Controls.OfType<ComboBox>().ToList();
                 foreach (Label label in labels)
                 {
@@ -289,8 +289,8 @@ namespace Download_and_converter
                 }
                 foreach (Button button in buttons)
                 {
-                button.BackColor = Color.FromArgb(userConfig.backColorD[0], userConfig.backColorD[1], userConfig.backColorD[2]);
-                button.ForeColor = Color.FromArgb(userConfig.textColorD[0], userConfig.textColorD[1], userConfig.textColorD[2]);
+                    button.BackColor = Color.FromArgb(userConfig.backColorD[0], userConfig.backColorD[1], userConfig.backColorD[2]);
+                    button.ForeColor = Color.FromArgb(userConfig.textColorD[0], userConfig.textColorD[1], userConfig.textColorD[2]);
                 }
                 foreach (ProgressBar bar in bars)
                 {
@@ -330,14 +330,15 @@ namespace Download_and_converter
         {
             Process.Start("explorer.exe", @ConvertPath);
         }
-        
 
-
-
-
-
-
-
+        private void DeleteFileBtn_Click(object sender, EventArgs e)
+        {
+            File.Delete(clickedfile);
+            removeLabelsConv();
+            removeLabels();
+            getDownloadedFiles();
+            getConvertedFiles();
+        }
     }
     class DefaultConfig
     {

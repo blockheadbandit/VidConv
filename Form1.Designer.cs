@@ -48,6 +48,7 @@
             convertedFilesFolder = new Button();
             label2 = new Label();
             progressBar1 = new ProgressBar();
+            DeleteFileBtn = new Button();
             SuspendLayout();
             // 
             // downloadedFiles
@@ -140,7 +141,7 @@
             // 
             codecCombo.FlatStyle = FlatStyle.Flat;
             codecCombo.FormattingEnabled = true;
-            codecCombo.Items.AddRange(new object[] { "MP4", "MOV", "AVI", "MP3", "WAV", "WEBM" });
+            codecCombo.Items.AddRange(new object[] { "MP4", "MOV", "AVI", "MP3", "WEBM" });
             codecCombo.Location = new Point(667, 86);
             codecCombo.Name = "codecCombo";
             codecCombo.Size = new Size(121, 23);
@@ -215,7 +216,7 @@
             explorerOpen.FlatAppearance.BorderSize = 0;
             explorerOpen.FlatStyle = FlatStyle.Flat;
             explorerOpen.Image = (Image)resources.GetObject("explorerOpen.Image");
-            explorerOpen.Location = new Point(355, 71);
+            explorerOpen.Location = new Point(378, 71);
             explorerOpen.Margin = new Padding(0);
             explorerOpen.Name = "explorerOpen";
             explorerOpen.Size = new Size(42, 41);
@@ -230,7 +231,7 @@
             convertedFilesFolder.FlatAppearance.BorderSize = 0;
             convertedFilesFolder.FlatStyle = FlatStyle.Flat;
             convertedFilesFolder.Image = (Image)resources.GetObject("convertedFilesFolder.Image");
-            convertedFilesFolder.Location = new Point(403, 71);
+            convertedFilesFolder.Location = new Point(415, 71);
             convertedFilesFolder.Margin = new Padding(0);
             convertedFilesFolder.Name = "convertedFilesFolder";
             convertedFilesFolder.Size = new Size(42, 41);
@@ -241,7 +242,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(350, 62);
+            label2.Location = new Point(354, 62);
             label2.Name = "label2";
             label2.Size = new Size(95, 15);
             label2.TabIndex = 17;
@@ -254,14 +255,27 @@
             progressBar1.Size = new Size(838, 23);
             progressBar1.TabIndex = 18;
             // 
+            // DeleteFileBtn
+            // 
+            DeleteFileBtn.FlatAppearance.BorderSize = 0;
+            DeleteFileBtn.FlatStyle = FlatStyle.Flat;
+            DeleteFileBtn.Image = (Image)resources.GetObject("DeleteFileBtn.Image");
+            DeleteFileBtn.Location = new Point(344, 71);
+            DeleteFileBtn.Name = "DeleteFileBtn";
+            DeleteFileBtn.Size = new Size(42, 41);
+            DeleteFileBtn.TabIndex = 19;
+            DeleteFileBtn.UseVisualStyleBackColor = true;
+            DeleteFileBtn.Click += DeleteFileBtn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(804, 449);
-            Controls.Add(progressBar1);
             Controls.Add(label2);
+            Controls.Add(DeleteFileBtn);
+            Controls.Add(progressBar1);
             Controls.Add(convertedFilesFolder);
             Controls.Add(explorerOpen);
             Controls.Add(CloseApp);
@@ -310,5 +324,6 @@
         private Button convertedFilesFolder;
         private Label label2;
         private ProgressBar progressBar1;
+        private Button DeleteFileBtn;
     }
 }
