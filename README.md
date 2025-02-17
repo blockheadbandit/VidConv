@@ -1,3 +1,4 @@
+# Project discontinued due to various problems with yt-dll. Will probably be remastered in the future using UWP
 # Download and converter
 
 
